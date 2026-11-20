@@ -1,0 +1,11 @@
+# S3R-VLA v2 - LIBERO fine-tuning, global batch 64 = 4 GPUs x 16.   Launch: bash scripts/train.sh v2
+# v1 + conditional motion decoder + posterior world-model loss; the skill code does not enter the action expert.
+_base_: s3r_vla_v1_libero_ft.yaml
+run_id: s3r_vla_v2_libero_ft
+
+framework:
+  name: S3R_VLA_v2             # starVLA/model/framework/S3R_VLA.py
+  skill_model:
+    num_skill_tokens: 2          # S
+    codebook_size: 16            # V
+    wm_post_weight: 1.0          # posterior world-model loss: the posterior skill conditions the predictor

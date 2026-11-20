@@ -1,0 +1,47 @@
+# S3R-VLA v3 - LIBERO fine-tuning with the settings of the paper (Sec. III, Sec. IV-A, Appendix A / Table A1),
+# global batch 256 = 8 GPUs x 32.   Launch: bash scripts/train.sh v3
+_base_: s3r_vla_libero_base.yaml
+run_id: s3r_vla_v3_libero_ft
+num_gpus: 8                    # default number of training processes of scripts/train.sh
+
+framework:
+  name: S3R_VLA_v3             # starVLA/model/framework/S3R_VLA.py
+  skill_model:
+    # ---------- skill code ----------
+    num_queries: 2             # S query embeddings in both Q-Formers
+    query_dim: 16              # each query output -> 16 dims; concatenated into the 32-dim u_post / u_pri
+    rvq_levels: 2              # D
+    codebook_size: 16          # V
+    qformer_hidden: 256
+    qformer_heads: 8
+    posterior_layers: 2        # posterior Q-Former 2 / 256 / 8; prior Q-Former 1 / 256 / 8 (one cross-attention block)
+    decoder_hidden: 512        # action / motion decoders: MLPs with 3 linear layers, width 512
+    posterior_inputs: [obs, action]   # ablations: [action] (w/o obs. change) | [obs] (w/o action)
+    frame_difference: true     # ablation: false feeds h_bar_k instead of dh_k (w/o frame difference)
+    skill_full_attention: true # ablation: false keeps causal attention among skill tokens
+    # ---------- DASQ ----------
+    codebook_ema_decay: 0.99   # gamma
+    kernel_weight: 0.1         # mu (0 disables the kernel-weighted update)
+    kernel_scale: 4.0          # zeta
+    kernel_ema: 0.99           # EMA coefficient of delta_bar
+    revive_every: 100          # T_r (0 disables dead-code restart)
+    revive_threshold: 1.0      # N_min
+    revive_decay: 0.99         # decay of the hard-assignment count N~_j
+    revive_noise: 0.01         # sigma_r
+    tau_ema: 0.99              # EMA coefficient of the temperature kappa
+    tau_target_gap: 1.0
+    # ---------- loss weights ----------
+    wm_weight: 0.3             # lambda_wm (0 removes the world model: w/o world model)
+    ce_weight: 0.5             # lambda_CE
+    action_rec_weight: 0.5     # lambda_act
+    motion_weight: 0.5         # lambda_motion
+    commit_weight: 1.0         # lambda_commit
+    diversity_weight: 0.2      # lambda_div (0 disables diversity regularization)
+    ce_warmup_forwards: 2000   # L_CE (and the prior commitment loss) is added after the first 2000 iterations
+    log_every_forwards: 100
+
+datasets:
+  vla_data:
+    per_device_batch_size: 32
+    action_end_padding: hold_gripper  # past the end of a demonstration: zero pose increments, last gripper command
+    balance_dataset_weights: true     # pooled demonstrations: every training window of the four suites is equally likely

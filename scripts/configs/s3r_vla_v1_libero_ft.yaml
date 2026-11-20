@@ -1,0 +1,41 @@
+# S3R-VLA v1 - LIBERO fine-tuning, global batch 64 = 4 GPUs x 16.   Launch: bash scripts/train.sh v1
+_base_: s3r_vla_libero_base.yaml
+run_id: s3r_vla_v1_libero_ft
+num_gpus: 4                    # default number of training processes of scripts/train.sh
+
+framework:
+  name: S3R_VLA_v1             # starVLA/model/framework/S3R_VLA.py
+  skill_model:
+    # ---------- skill bottleneck ----------
+    num_skill_tokens: 4          # S: separately quantized skill vectors per 8-frame window
+    code_dim: 32
+    rvq_levels: 2                # D: residual quantization levels
+    codebook_size: 32            # V: codes per level
+    qformer_hidden: 256          # posterior / prior Q-Formers and the Transformer action decoder
+    decoder_hidden: 512          # motion decoder (MLP)
+    # ---------- codebook ----------
+    codebook_ema_decay: 0.99     # EMA codebook update, driven by the posterior branch only
+    revive_every: 100            # dead-code restart every 100 codebook updates
+    revive_threshold: 1.0        # codes with a recent hard-assignment count < 1 are dead
+    revive_decay: 0.99           # decay of the recent hard-assignment count
+    revive_noise: 0.01
+    tau_ema: 0.99                # adaptive temperature: logits = -d^2 / tau, tau tracks the nearest-code d^2 gap
+    tau_target_gap: 1.0
+    ema_teacher_decay: 0.999     # EMA copy of the posterior Q-Former (not used by any loss)
+    # ---------- losses ----------
+    wm_weight: 0.1               # world model, conditioned on [8 latent action tokens | S skill tokens] per time step
+    ce_weight: 0.05              # level-wise cross-entropy of the prior branch against the posterior codes
+    ce_level_weights: [1.0, 1.0]
+    ce_warmup_forwards: 2000     # the cross-entropy loss is disabled for the first 2000 forward passes
+    motion_weight: 0.5           # motion decoder (L1 normalized by the target magnitude)
+    commit_weight: 1.0
+    diversity_weight: 0.1        # code diversity regularization (posterior branch only)
+    action_rec_weight: 0.5       # action decoder (L1, no observation input)
+    action_rec_steps: 8          # decoded steps; LIBERO chunks have 7 actions, so min(8, 7) = 7 are supervised
+    action_rec_action_dim: 7
+    action_rec_layers: 2
+    log_every_forwards: 100
+
+datasets:
+  vla_data:
+    per_device_batch_size: 16

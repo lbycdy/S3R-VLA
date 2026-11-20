@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.egg-info/
+# created by scripts/train.sh and the evaluation scripts
+/logs/
+/checkpoints/
+/results/
+# local model weights and datasets (see README)
+/models/
+/datasets/
