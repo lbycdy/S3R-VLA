@@ -25,9 +25,9 @@ All versions are implemented in [`S3R_VLA.py`](./starVLA/model/framework/S3R_VLA
 
 | Version | Config | Global batch | Weights (LIBERO) |
 |---|---|---|---|
-| v1 | [`s3r_vla_v1_libero_ft.yaml`](./scripts/configs/s3r_vla_v1_libero_ft.yaml) | 64 (4 × 16) | <!-- TODO: link --> coming soon |
-| v2 | [`s3r_vla_v2_libero_ft.yaml`](./scripts/configs/s3r_vla_v2_libero_ft.yaml) | 64 (4 × 16) | <!-- TODO: link --> coming soon |
-| v3 | [`s3r_vla_v3_libero_ft.yaml`](./scripts/configs/s3r_vla_v3_libero_ft.yaml) | 256 (8 × 32) | config only |
+| v1 | [`s3r_vla_v1_libero_ft.yaml`](./scripts/configs/s3r_vla_v1_libero_ft.yaml) | 256 (8 × 32) | <!-- TODO: link --> coming soon |
+| v2 | [`s3r_vla_v2_libero_ft.yaml`](./scripts/configs/s3r_vla_v2_libero_ft.yaml) | 256 (8 × 32) | <!-- TODO: link --> coming soon |
+| v3 | [`s3r_vla_v3_libero_ft.yaml`](./scripts/configs/s3r_vla_v3_libero_ft.yaml) | 256 (8 × 32) | <!-- TODO: link --> coming soon  |
 
 A released checkpoint keeps the layout written by the trainer, which the evaluation scripts expect:
 ```
@@ -104,10 +104,7 @@ GPUS="0 1 2 3 4 5 6" bash examples/LIBERO-Plus/eval_libero_plus.sh
 
 We thank [VLA-JEPA](https://github.com/ginwind/VLA-JEPA), [starVLA](https://github.com/starVLA/starVLA), [V-JEPA 2](https://github.com/facebookresearch/vjepa2), [Qwen3-VL](https://github.com/QwenLM/Qwen3-VL), [GR00T N1.5](https://github.com/NVIDIA/Isaac-GR00T), [LIBERO](https://github.com/Lifelong-Robot-Learning/LIBERO), and [LIBERO-Plus](https://github.com/sylvestf/LIBERO-plus) for their open-source contributions.
 
-## License
 
-<!-- TODO: choose a license for S3R-VLA and add a LICENSE file. -->
-This repository contains code from starVLA (MIT License), VLA-JEPA (Apache-2.0 License), and V-JEPA 2 (MIT License); the original copyright notices are kept in the corresponding files.
 
 ## Citation
 
