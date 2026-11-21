@@ -25,8 +25,8 @@ All versions are implemented in [`S3R_VLA.py`](./starVLA/model/framework/S3R_VLA
 
 | Version | Config | Global batch | Weights (LIBERO) |
 |---|---|---|---|
-| v1 | [`s3r_vla_v1_libero_ft.yaml`](./scripts/configs/s3r_vla_v1_libero_ft.yaml) | 256 (8 × 32) | <!-- TODO: link --> coming soon |
-| v2 | [`s3r_vla_v2_libero_ft.yaml`](./scripts/configs/s3r_vla_v2_libero_ft.yaml) | 256 (8 × 32) | <!-- TODO: link --> coming soon |
+| v1 | [`s3r_vla_v1_libero_ft.yaml`](./scripts/configs/s3r_vla_v1_libero_ft.yaml) | 256 (8 × 32) | [S3R-VLA-v1](https://huggingface.co/lbycdy123/S3R-VLA/tree/main/S3R-VLA-v1) |
+| v2 | [`s3r_vla_v2_libero_ft.yaml`](./scripts/configs/s3r_vla_v2_libero_ft.yaml) | 256 (8 × 32) | [S3R-VLA-v2](https://huggingface.co/lbycdy123/S3R-VLA/tree/main/S3R-VLA-v2) |
 | v3 | [`s3r_vla_v3_libero_ft.yaml`](./scripts/configs/s3r_vla_v3_libero_ft.yaml) | 256 (8 × 32) | <!-- TODO: link --> coming soon  |
 
 A released checkpoint keeps the layout written by the trainer, which the evaluation scripts expect:
