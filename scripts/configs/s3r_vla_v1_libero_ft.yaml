@@ -1,7 +1,7 @@
-# S3R-VLA v1 - LIBERO fine-tuning, global batch 64 = 4 GPUs x 16.   Launch: bash scripts/train.sh v1
+# S3R-VLA v1 - LIBERO fine-tuning, global batch 256 = 8 GPUs x 32.   Launch: bash scripts/train.sh v1
 _base_: s3r_vla_libero_base.yaml
 run_id: s3r_vla_v1_libero_ft
-num_gpus: 4                    # default number of training processes of scripts/train.sh
+num_gpus: 8                    # default number of training processes of scripts/train.sh
 
 framework:
   name: S3R_VLA_v1             # starVLA/model/framework/S3R_VLA.py
@@ -38,4 +38,4 @@ framework:
 
 datasets:
   vla_data:
-    per_device_batch_size: 16
+    per_device_batch_size: 32

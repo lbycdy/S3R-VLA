@@ -97,7 +97,7 @@ GPUS="0 1 2 3" bash examples/LIBERO/eval_libero.sh
 ```bash
 CKPT=/path/to/s3r_vla_v1_libero_ft/checkpoints/steps_120000_pytorch_model.pt \
 LIBERO_HOME=/path/to/LIBERO-plus SIM_PYTHON=/path/to/libero_plus_env/bin/python \
-GPUS="0 1 2 3 4 5 6" bash examples/LIBERO-Plus/eval_libero_plus.sh
+GPUS="0 1 2 3 4 5 6 7" bash examples/LIBERO-Plus/eval_libero_plus.sh
 ```
 
 ## Acknowledgement

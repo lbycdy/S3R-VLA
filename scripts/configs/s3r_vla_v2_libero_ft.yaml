@@ -1,4 +1,4 @@
-# S3R-VLA v2 - LIBERO fine-tuning, global batch 64 = 4 GPUs x 16.   Launch: bash scripts/train.sh v2
+# S3R-VLA v2 - LIBERO fine-tuning, global batch 256 = 8 GPUs x 32.   Launch: bash scripts/train.sh v2
 # v1 + conditional motion decoder + posterior world-model loss; the skill code does not enter the action expert.
 _base_: s3r_vla_v1_libero_ft.yaml
 run_id: s3r_vla_v2_libero_ft
